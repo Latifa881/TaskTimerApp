@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Instructions"
+        android:id="@+id/home"
+        android:icon="@drawable/ic_baseline_info_24"/>
+
+    <item
+        android:title="View"
+        android:id="@+id/view"
+        android:icon="@drawable/ic_baseline_checklist_rtl_24"/>
+
+    <item
+        android:id="@+id/placeholder"
+        android:title="" />
+
+    <item
+        android:title="Alarm"
+        android:id="@+id/alarm"
+        android:icon="@drawable/ic_baseline_access_alarm_24"/>
+
+    <item
+        android:title="Summary"
+        android:id="@+id/summary"
+        android:icon="@drawable/ic_baseline_content_paste_search_24"/>
+
+</menu>
