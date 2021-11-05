@@ -31,6 +31,11 @@ class MyViewModel(application: Application): AndroidViewModel(application) {
             noteDao.update(timer , id)
         }
     }
+    fun updateTaskObj(tasks: Tasks){
+        CoroutineScope(Dispatchers.IO).launch {
+            noteDao.updateOBJ(tasks)
+        }
+    }
 
     fun deleteTask(taskID: Int){
         CoroutineScope(Dispatchers.IO).launch {

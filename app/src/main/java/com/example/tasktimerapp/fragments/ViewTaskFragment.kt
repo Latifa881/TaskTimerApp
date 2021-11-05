@@ -55,15 +55,6 @@ class ViewTaskFragment : Fragment() {
         tvTaskName = view.findViewById(R.id.tvTaskName)
 
 
-        // import font
-        // Typeface MLight = Typeface.createFromAsset (getAssets(), path: "fonts/MLight.ttf");
-        // Typeface MMedium = Typeface.createFromAsset(getAssets(), path: "fonts/MMedium.ttf");
-        // Typeface MRegular = Typeface.createFromAsset(getAssets (), path: "fonts/MRegular.ttf");
-        // customize font
-        // tvSplash.setTypeface(MRegular);
-        // tvSubSplash.setTypeface(MLight);
-        // btnget.setTypeface(MMedium);
-
         myViewModel.getTasks().observe(viewLifecycleOwner, {
                 tasks ->
 

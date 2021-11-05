@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.tasktimerapp.R
 import com.example.tasktimerapp.broadcastReceiver.AlarmBroadcastReceiver
+import com.example.tasktimerapp.singletoneobject.MyAlarm
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
@@ -54,7 +55,9 @@ class AlarmFragment : Fragment() {
         btCancelAlarm.setOnClickListener {
             cancelAlarm()
         }
-
+        if (MyAlarm.isAlarmCreated){
+         tvAlarmTim.text=MyAlarm.alarmTime
+        }
         return view
     }
 
@@ -113,6 +116,9 @@ class AlarmFragment : Fragment() {
             AlarmManager.RTC_WAKEUP,calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY,pendingIntent
         )
+        MyAlarm.isAlarmCreated=true
+        MyAlarm.alarmTime=tvAlarmTim.text.toString()
+
         Toast.makeText(context,"Alarm set Successfully",Toast.LENGTH_LONG).show()
 
     }
@@ -122,6 +128,7 @@ class AlarmFragment : Fragment() {
         pendingIntent= PendingIntent.getBroadcast(context, 0, intent,0)
         alarmManager.cancel(pendingIntent)
         Toast.makeText(context,"Alarm Cancelled",Toast.LENGTH_LONG).show()
+        MyAlarm.isAlarmCreated=false
         tvAlarmTim.text="You didn't set an alarm yet"
     }
 }

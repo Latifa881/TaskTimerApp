@@ -5,86 +5,63 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasktimerapp.R
 import com.example.tasktimerapp.database.Tasks
 import com.example.tasktimerapp.model.MyViewModel
+import com.google.android.material.textfield.TextInputEditText
 
 class AddTaskFragment : Fragment() {
-    lateinit var etName: EditText
-    lateinit var etDescription: EditText
+    lateinit var etName: TextInputEditText
+    lateinit var etDescription: TextInputEditText
     lateinit var btnAdd: Button
-    private val myViewModel by lazy{ ViewModelProvider(this).get(MyViewModel::class.java)}
+    lateinit var constraintLayoutAdd:ConstraintLayout
+    private val myViewModel by lazy { ViewModelProvider(this).get(MyViewModel::class.java) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-         val view=inflater.inflate(R.layout.fragment_add_task, container, false)
+        val view = inflater.inflate(R.layout.fragment_add_task, container, false)
         etName = view.findViewById(R.id.etName)
         etDescription = view.findViewById(R.id.etDescription)
         btnAdd = view.findViewById(R.id.btnAdd)
+        constraintLayoutAdd=view.findViewById(R.id.constraintLayoutAdd)
+        constraintLayoutAdd.setOnClickListener{
+            hidKeyBoard()
+        }
 
-//        var fab = view.findViewById<FloatingActionButton>(R.id.fabAdd)
-//        fab.setOnClickListener {
-//
-//            //startActivity(Intent(this, AddTaskActivity::class.java))
-//        }
-
-//        var btAddNavigationView = view.findViewById<BottomNavigationView>(R.id.btAddNavigationView)
-//
-//        btAddNavigationView.background = null
-//        btAddNavigationView.menu.getItem(2).isEnabled = false
-//
-//        btAddNavigationView.setOnNavigationItemSelectedListener {
-//                item ->
-//            when (item.itemId) {
-//                R.id.home -> {
-//                    Navigation.findNavController(view).navigate(R.id.action_addTaskFragment_to_homeFragment)
-//                    //startActivity(Intent(this, MainActivity::class.java))
-//                }
-//                R.id.view -> {
-//                    Navigation.findNavController(view).navigate(R.id.action_addTaskFragment_to_viewTaskFragment)
-//                   // startActivity(Intent(this, ViewTaskActivity::class.java))
-//
-//                }
-//                R.id.add -> {
-//                  //  startActivity(Intent(this, AddTaskActivity::class.java))
-//
-//                }
-//                R.id.summary -> {
-//                    Navigation.findNavController(view).navigate(R.id.action_addTaskFragment_to_summaryTaskFragment)
-//                    //startActivity(Intent(this, SummaryTaskActivity::class.java))
-//                }
-//
-//            }
-//            true
-//        }
         btnAdd.setOnClickListener {
-            if (etName.text.isNotEmpty() && etDescription.text.isNotEmpty()){
+
+            if (etName.text.toString().isNotEmpty() && etDescription.text.toString().isNotEmpty()) {
                 var name = etName.text.toString()
                 var description = etDescription.text.toString()
 
-                // add to database
-                myViewModel.addTask(Tasks(0,name, description,""))
+                myViewModel.addTask(Tasks(0, name, description, "00:00:00"))
                 var fr = getFragmentManager()?.beginTransaction()
                 fr?.replace(R.id.frameLayout, ViewTaskFragment())
                 fr?.commit()
-             //   Navigation.findNavController(view).navigate(R.id.action_addTaskFragment_to_viewTaskFragment)
-               // startActivity(Intent(this, ViewTaskActivity::class.java))
+                hidKeyBoard()
 
-
-            }else{
-                Toast.makeText(context , "Enter a full task" , Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Enter a full task", Toast.LENGTH_SHORT).show()
             }
         }
 
 
         return view
     }
-
+    fun hidKeyBoard(){
+        // Hide Keyboard
+        val imm = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+        imm?.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+    }
 
 
 }
