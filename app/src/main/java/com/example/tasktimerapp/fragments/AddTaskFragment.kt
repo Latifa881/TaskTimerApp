@@ -7,16 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.tasktimerapp.R
 import com.example.tasktimerapp.database.Tasks
 import com.example.tasktimerapp.model.MyViewModel
 import com.google.android.material.textfield.TextInputEditText
+import com.example.tasktimerapp.R
+
+
+
 
 class AddTaskFragment : Fragment() {
     lateinit var etName: TextInputEditText

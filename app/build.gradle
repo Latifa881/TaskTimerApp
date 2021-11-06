@@ -63,8 +63,8 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.4'
     //lottie
     implementation "com.airbnb.android:lottie:3.4.1"
-    //datastore
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha02"
+    //tutoshowcase
+    implementation  'com.github.florent37:tutoshowcase:1.0.1'
     //RecyclerViewSwipeDecorator
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
     //recyclerview-selection

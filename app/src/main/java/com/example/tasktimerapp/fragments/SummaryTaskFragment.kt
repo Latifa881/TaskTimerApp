@@ -5,8 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -17,6 +22,7 @@ import com.example.tasktimerapp.adapter.SummaryRVAdapter
 import com.example.tasktimerapp.callbacks.SwipeGesture
 import com.example.tasktimerapp.database.Tasks
 import com.example.tasktimerapp.model.MyViewModel
+import java.util.*
 
 
 class SummaryTaskFragment : Fragment() {
@@ -27,6 +33,12 @@ class SummaryTaskFragment : Fragment() {
     lateinit var summaryRVAdapter: SummaryRVAdapter
     lateinit var tvTotalTasks:TextView
     lateinit var tvTotalTimes:TextView
+    lateinit var svSearchTask: SearchView
+    lateinit var constraintLayoutSummary:ConstraintLayout
+    lateinit var ivSort:ImageView
+    val searchArray = arrayListOf<Tasks>()
+    val sortArray = arrayListOf<Tasks>()
+    var sortFlag:Boolean=false
 
     private val myViewModel by lazy{ ViewModelProvider(this).get(MyViewModel::class.java)}
 
@@ -42,8 +54,13 @@ class SummaryTaskFragment : Fragment() {
         rvSummary = view.findViewById(R.id.rvSummary)
         tvTotalTasks=view.findViewById(R.id.tvTotalTasks)
         tvTotalTimes=view.findViewById(R.id.tvTotalTimes)
+        svSearchTask=view.findViewById(R.id.svSearchTask)
+        constraintLayoutSummary=view.findViewById(R.id.constraintLayoutSummary)
+        ivSort=view.findViewById(R.id.ivSort)
 
-
+        constraintLayoutSummary.setOnClickListener {
+            hidKeyBoard()
+        }
 
         myViewModel.getTasks().observe(viewLifecycleOwner, {
                 tasks ->
@@ -87,11 +104,45 @@ class SummaryTaskFragment : Fragment() {
             }
             val touchHelperDelete = ItemTouchHelper(swipeGesture)
             touchHelperDelete.attachToRecyclerView(rvSummary)
-
             summaryRVAdapter.update(tasks)
             tvTotalTasks.setText("Total Number of Tasks: ${tasks.size}")
-            tvTotalTimes.setText("Total Time spend on Tasks: ${TotalTime(tasks)}")
+            tvTotalTimes.setText("Total Time Spent on Tasks: ${TotalTime(tasks)}")
 
+            svSearchTask.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    return true
+                }
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (newText.isNotEmpty()) {
+                        searchArray.clear()
+                        val search = newText.toLowerCase(Locale.getDefault())
+                        tasks.forEach {
+                            if (it.name?.toLowerCase(Locale.getDefault()).toString()
+                                    .contains(search)
+                            ) {
+                                searchArray.add(it)
+                            }
+                        }
+                        summaryRVAdapter.update(searchArray)
+                    } else {
+                        searchArray.clear()
+                        searchArray.addAll(tasks)
+                        summaryRVAdapter.update(searchArray)
+                    }
+
+
+                    return false
+                }
+            })
+            ivSort.setOnClickListener {
+                sortFlag=!sortFlag
+
+                sortArray.clear()
+                sortArray.addAll(tasks.sortedByDescending { it.name })
+                if(sortFlag)
+                {sortArray.reverse()}
+                summaryRVAdapter.update(sortArray)
+            }
 
         })
 
@@ -114,6 +165,11 @@ class SummaryTaskFragment : Fragment() {
             seconds+=i.totalTimer.substring(6,8).toFloat()
         }
         return "$hours:$minutes:$seconds"
+    }
+    fun hidKeyBoard(){
+        // Hide Keyboard
+        val imm = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+        imm?.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 
 

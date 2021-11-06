@@ -21,6 +21,7 @@ import com.example.tasktimerapp.R
 import com.example.tasktimerapp.TimerService
 import com.example.tasktimerapp.adapter.StopwatchRVAdapter
 import com.example.tasktimerapp.model.MyViewModel
+import com.github.florent37.tutoshowcase.TutoShowcase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlin.math.roundToInt
@@ -34,8 +35,7 @@ class ViewTaskFragment : Fragment() {
     lateinit var llNoViewTaskFragment : LinearLayout
     lateinit var llViewTaskFragment : LinearLayout
     lateinit var rvMain:RecyclerView
-    lateinit var btViewNavigationView:BottomNavigationView
-    lateinit var fab:FloatingActionButton
+    lateinit var ivInfo:TextView
     var timerStarted = false
     private lateinit var serviceIntent: Intent
     private var time = 0.0
@@ -53,6 +53,15 @@ class ViewTaskFragment : Fragment() {
         llNoViewTaskFragment = view.findViewById(R.id.llNoViewTask)
         llViewTaskFragment = view.findViewById(R.id.llViewTask)
         tvTaskName = view.findViewById(R.id.tvTaskName)
+        ivInfo=view.findViewById(R.id.ivInfo)
+//        ivInfo.setOnClickListener {
+//            TutoShowcase.from(requireActivity())
+//                .on(view)
+//                .displaySwipableLeft()
+//
+//            .show()
+//        }
+
 
 
         myViewModel.getTasks().observe(viewLifecycleOwner, {
@@ -63,6 +72,7 @@ class ViewTaskFragment : Fragment() {
                 llViewTaskFragment.visibility = View.GONE
 
             } else {
+
                 stopwatchRvAdapter.update(tasks)
                 llViewTaskFragment.visibility = View.VISIBLE
                 llNoViewTaskFragment.visibility = View.GONE
