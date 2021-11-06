@@ -1,5 +1,6 @@
 package com.example.tasktimerapp.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,6 +23,9 @@ import com.example.tasktimerapp.adapter.SummaryRVAdapter
 import com.example.tasktimerapp.callbacks.SwipeGesture
 import com.example.tasktimerapp.database.Tasks
 import com.example.tasktimerapp.model.MyViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground
 import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal
@@ -88,7 +92,27 @@ class SummaryTaskFragment : Fragment() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                     when(direction){
-                        ItemTouchHelper.LEFT ->{summaryRVAdapter.deleteTask(viewHolder.absoluteAdapterPosition)}
+                        ItemTouchHelper.LEFT -> {
+                            val deleteBuilder = AlertDialog.Builder(context)
+                            deleteBuilder.setTitle("Delete Task")
+                            deleteBuilder.setMessage("Are you sure you want to delete this task?")
+                            deleteBuilder.setIcon(android.R.drawable.ic_dialog_alert)
+
+                            deleteBuilder.setPositiveButton("Delete") { dialogInterface, which ->
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    summaryRVAdapter.deleteTask(viewHolder.absoluteAdapterPosition)
+
+                                }
+
+                                dialogInterface.dismiss()
+                            }
+                            deleteBuilder.setNeutralButton("Cancel") { dialogInterface, which ->
+                                summaryRVAdapter.update(tasks)
+                                dialogInterface.dismiss()
+                            }
+                            deleteBuilder.setCancelable(true)
+                            deleteBuilder.show()
+                        }
                         ItemTouchHelper.RIGHT ->{
                          val updateTaskDetails=summaryRVAdapter.updateTask(viewHolder.absoluteAdapterPosition)
                             val bundle = Bundle()
