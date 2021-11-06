@@ -1,6 +1,6 @@
 package com.example.tasktimerapp.fragments
 
-import android.annotation.SuppressLint
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,10 +20,12 @@ import com.example.tasktimerapp.R
 import com.example.tasktimerapp.TimerService
 import com.example.tasktimerapp.adapter.StopwatchRVAdapter
 import com.example.tasktimerapp.model.MyViewModel
-import com.github.florent37.tutoshowcase.TutoShowcase
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.task_row.view.*
 import kotlin.math.roundToInt
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt.PromptStateChangeListener
+import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground
+import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal
 
 
 class ViewTaskFragment : Fragment() {
@@ -35,7 +36,7 @@ class ViewTaskFragment : Fragment() {
     lateinit var llNoViewTaskFragment : LinearLayout
     lateinit var llViewTaskFragment : LinearLayout
     lateinit var rvMain:RecyclerView
-    lateinit var ivInfo:TextView
+    lateinit var ivInfo:ImageView
     var timerStarted = false
     private lateinit var serviceIntent: Intent
     private var time = 0.0
@@ -54,14 +55,6 @@ class ViewTaskFragment : Fragment() {
         llViewTaskFragment = view.findViewById(R.id.llViewTask)
         tvTaskName = view.findViewById(R.id.tvTaskName)
         ivInfo=view.findViewById(R.id.ivInfo)
-//        ivInfo.setOnClickListener {
-//            TutoShowcase.from(requireActivity())
-//                .on(view)
-//                .displaySwipableLeft()
-//
-//            .show()
-//        }
-
 
 
         myViewModel.getTasks().observe(viewLifecycleOwner, {
@@ -76,6 +69,11 @@ class ViewTaskFragment : Fragment() {
                 stopwatchRvAdapter.update(tasks)
                 llViewTaskFragment.visibility = View.VISIBLE
                 llNoViewTaskFragment.visibility = View.GONE
+
+                ivInfo.setOnClickListener {
+                    startInfoShowCase()
+
+                }
             }
 
         })
@@ -142,6 +140,89 @@ class ViewTaskFragment : Fragment() {
     }
 
     fun makeTimeString(hour: Int, min: Int, sec: Int): String = String.format("%02d:%02d:%02d", hour, min, sec)
+    fun startInfoShowCase(){
+        changeVisibility(0)
+        MaterialTapTargetPrompt.Builder(this@ViewTaskFragment)
+            .setTarget(R.id.ivStart)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("Start Your Task Stopwatch")
+            .setSecondaryText("Click the start icon to start your task stopwatch.")
+            .setPromptStateChangeListener(PromptStateChangeListener { prompt, state ->
+                if  (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED){
+                    stopwatchInfoShowCase()
+
+                }
+            })
+            .show()
+    }
+    fun stopwatchInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@ViewTaskFragment)
+            .setTarget(R.id.tvStopWatch)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("See Your Active Task Stopwatch")
+            .setSecondaryText("You can see you active task name and the time.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptStateChangeListener(PromptStateChangeListener { prompt, state ->
+                if  (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED){
+                    stopInfoShowCase()
+
+                }
+            })
+            .show()
+
+
+
+    }
+    fun stopInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@ViewTaskFragment)
+            .setTarget(R.id.ivStop)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("Stop Your Task Stopwatch")
+            .setSecondaryText("Click the Stop icon of the active task to stop the stopwatch.")
+            .setPromptStateChangeListener(PromptStateChangeListener { prompt, state ->
+                if  (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED){
+                    taskInfoShowCase()
+                }
+            })
+            .show()
+    }
+    fun taskInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@ViewTaskFragment)
+            .setTarget(R.id.cvTask)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("Navigate Between Tasks")
+            .setSecondaryText("Swipe left and right to move between tasks.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptStateChangeListener(PromptStateChangeListener { prompt, state ->
+                if  (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED){
+
+                    changeVisibility(1)
+
+                }
+            })
+            .show()
+    }
+    fun changeVisibility(status:Int){
+        when(status){
+            0->{
+                llNoViewTaskFragment.visibility = View.GONE
+                llViewTaskFragment.visibility = View.GONE
+            }
+            1->{
+                llNoViewTaskFragment.visibility = View.GONE
+                llViewTaskFragment.visibility = View.VISIBLE
+            }
+        }
+
+    }
 
 
 

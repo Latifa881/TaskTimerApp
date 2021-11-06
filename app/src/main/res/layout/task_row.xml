@@ -7,10 +7,11 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvTask"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="40dp"
-        android:backgroundTint="#CA5B7C"
+        android:backgroundTint="@color/pink"
         app:cardCornerRadius="30dp">
 
         <LinearLayout
@@ -18,7 +19,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_margin="10dp"
-            android:background="#CA5B7C"
+            android:background="@color/pink"
             android:weightSum="5">
 
         <LinearLayout

@@ -9,19 +9,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.TimePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.tasktimerapp.R
 import com.example.tasktimerapp.broadcastReceiver.AlarmBroadcastReceiver
 import com.example.tasktimerapp.singletoneobject.MyAlarm
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
+import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal
 import java.util.*
 
 class AlarmFragment : Fragment() {
@@ -29,6 +25,8 @@ class AlarmFragment : Fragment() {
     lateinit var btSetAlarm: Button
     lateinit var btCancelAlarm:Button
     lateinit var tvAlarmTim: TextView
+    lateinit var ivInfoAlarm:ImageView
+    lateinit var llAlarm:LinearLayout
     private lateinit var timePiker: MaterialTimePicker
     private lateinit var calendar: Calendar
     private lateinit var alarmManager: AlarmManager
@@ -43,8 +41,15 @@ class AlarmFragment : Fragment() {
         createNotificationChannel()
         btSelectTime = view.findViewById(R.id.btSelectTime)
         btSetAlarm = view.findViewById(R.id.btSetAlarm)
-        tvAlarmTim = view.findViewById(R.id.tvAlarmTim)
+        tvAlarmTim = view.findViewById(R.id.tvAlarmTime)
         btCancelAlarm=view.findViewById(R.id.btCancelAlarm)
+        ivInfoAlarm=view.findViewById(R.id.ivInfoAlarm)
+        llAlarm=view.findViewById(R.id.llAlarm)
+
+        ivInfoAlarm.setOnClickListener {
+            selectTimeInfoShowCase()
+
+        }
 
         btSelectTime.setOnClickListener {
             showTimPicker()
@@ -62,7 +67,6 @@ class AlarmFragment : Fragment() {
     }
 
 
-
     fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelId = "taskTimerNotifications"
@@ -76,7 +80,6 @@ class AlarmFragment : Fragment() {
             notificationManager.createNotificationChannel(channel)
         }
     }
-
     fun showTimPicker() {
         timePiker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -130,5 +133,88 @@ class AlarmFragment : Fragment() {
         Toast.makeText(context,"Alarm Cancelled",Toast.LENGTH_LONG).show()
         MyAlarm.isAlarmCreated=false
         tvAlarmTim.text="You didn't set an alarm yet"
+    }
+    fun changeVisibility(status:Int){
+        when(status){
+            0->{
+                llAlarm.visibility = View.GONE
+            }
+            1->{
+                llAlarm.visibility = View.VISIBLE
+            }
+        }
+
+    }
+    fun selectTimeInfoShowCase(){
+        changeVisibility(0)
+        MaterialTapTargetPrompt.Builder(this@AlarmFragment)
+            .setTarget(R.id.btSelectTime)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("Set an Alarm for Your Task")
+            .setSecondaryText("Click this button to select a time for your alarm.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptStateChangeListener(MaterialTapTargetPrompt.PromptStateChangeListener { prompt, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED
+                ) {
+
+                    alarmTimeInfoShowCase()
+                }
+            })
+            .show()
+    }
+    fun alarmTimeInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@AlarmFragment)
+            .setTarget(R.id.tvAlarmTime)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("See The Selected Time for Your Alarm")
+            .setSecondaryText("You can see the time you have selected before the alarm is set.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptStateChangeListener(MaterialTapTargetPrompt.PromptStateChangeListener { prompt, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED
+                ) {
+                    setAlarmInfoShowCase()
+                }
+            })
+            .show()
+
+    }
+    fun setAlarmInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@AlarmFragment)
+            .setTarget(R.id.btSetAlarm)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("Set Your Alarm")
+            .setSecondaryText("You can set your alarm for the selected time.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptStateChangeListener(MaterialTapTargetPrompt.PromptStateChangeListener { prompt, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED
+                ) {
+                    cancelAlarmInfoShowCase()
+                }
+            })
+            .show()
+    }
+    fun cancelAlarmInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@AlarmFragment)
+            .setTarget(R.id.btCancelAlarm)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("Cancel Your Alarm")
+            .setSecondaryText("You can cancel your alarm by clicking this button.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptStateChangeListener(MaterialTapTargetPrompt.PromptStateChangeListener { prompt, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED
+                ) {
+                   changeVisibility(1)
+                }
+            })
+            .show()
+
     }
 }

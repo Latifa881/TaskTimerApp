@@ -8,6 +8,8 @@
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/drawable/icon_outer_background.xml" value="0.24375" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/drawable/indecator_active_background.xml" value="0.24375" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/drawable/indecator_inactive_background.xml" value="0.24375" />
+        <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/drawable/info_green.xml" value="0.24375" />
+        <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/drawable/search.xml" value="0.24375" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/drawable/view_pager_background.xml" value="0.24375" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/activity_add_task.xml" value="0.17604166666666668" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/activity_main.xml" value="0.17604166666666668" />
@@ -18,10 +20,11 @@
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/fragment_home.xml" value="0.21388888888888888" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/fragment_summary_task.xml" value="0.4" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/fragment_update.xml" value="0.2234375" />
-        <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/fragment_view_task.xml" value="0.17604166666666668" />
+        <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/fragment_view_task.xml" value="0.264" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/onboarding_item_container.xml" value="0.2234375" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/summary_row.xml" value="0.264" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/task_row.xml" value="0.4" />
+        <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/layout/task_row_info.xml" value="0.2234375" />
         <entry key="..\:/Users/Latifah/Desktop/Coding dojo/TaskTimerApp/app/src/main/res/menu/menu_item.xml" value="0.2234375" />
         <entry key="app/src/main/res/drawable/btn.xml" value="0.15416666666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.30666666666666664" />

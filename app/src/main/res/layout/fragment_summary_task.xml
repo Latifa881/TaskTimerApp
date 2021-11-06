@@ -31,54 +31,75 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical">
-                <LinearLayout
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="6"
-                    android:orientation="horizontal">
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/svSearchTask"
-                    android:layout_weight="5.5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:queryHint="Search"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btn"
-                    android:queryHint="Search Here"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"/>
+                    android:orientation="horizontal"
+                    android:weightSum="6">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_marginLeft="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/mlight"
+                        android:text="Tasks Summary"
+                        android:textColor="@color/pink"
+                        android:textSize="30dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
                         android:id="@+id/ivSort"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:layout_weight="0.5"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_baseline_sort_by_alpha_24"/>
-                </LinearLayout>
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="12dp"
 
-                <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:text="Tasks Summary"
-                android:fontFamily="@font/mlight"
-                android:textColor="@color/pink"
-                android:textSize="35dp"/>
-            <View
+                        android:src="@drawable/ic_baseline_sort_by_alpha_24"
+                        app:layout_constraintEnd_toStartOf="@+id/ivInfoSummary"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivInfoSummary"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/info_green"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/white"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"/>
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/svSearchTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                  android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/btn"
+                    android:queryHint="Search Here"
+                    app:queryHint="Search"
+                    app:searchIcon="@drawable/search" />
             <TextView
                 android:id="@+id/tvTotalTasks"
                 android:layout_marginRight="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
                 android:text="Total Number of Tasks: 4 "
                 android:fontFamily="@font/mlight"
                 android:textColor="@color/green"
@@ -93,7 +114,6 @@
                 android:fontFamily="@font/mlight"
                 android:textColor="@color/green"
                 android:textSize="18sp"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSummary"
                 android:layout_width="match_parent"

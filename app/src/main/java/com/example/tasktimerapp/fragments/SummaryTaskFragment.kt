@@ -22,6 +22,9 @@ import com.example.tasktimerapp.adapter.SummaryRVAdapter
 import com.example.tasktimerapp.callbacks.SwipeGesture
 import com.example.tasktimerapp.database.Tasks
 import com.example.tasktimerapp.model.MyViewModel
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
+import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground
+import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal
 import java.util.*
 
 
@@ -35,6 +38,7 @@ class SummaryTaskFragment : Fragment() {
     lateinit var tvTotalTimes:TextView
     lateinit var svSearchTask: SearchView
     lateinit var constraintLayoutSummary:ConstraintLayout
+    lateinit var ivInfoSummary:ImageView
     lateinit var ivSort:ImageView
     val searchArray = arrayListOf<Tasks>()
     val sortArray = arrayListOf<Tasks>()
@@ -57,6 +61,7 @@ class SummaryTaskFragment : Fragment() {
         svSearchTask=view.findViewById(R.id.svSearchTask)
         constraintLayoutSummary=view.findViewById(R.id.constraintLayoutSummary)
         ivSort=view.findViewById(R.id.ivSort)
+        ivInfoSummary=view.findViewById(R.id.ivInfoSummary)
 
         constraintLayoutSummary.setOnClickListener {
             hidKeyBoard()
@@ -73,6 +78,9 @@ class SummaryTaskFragment : Fragment() {
 
                 llSummaryTask.visibility = View.VISIBLE
                 llNoSummaryTask.visibility = View.GONE
+                ivInfoSummary.setOnClickListener {
+                    numberOfTaskInfoShowCase()
+                }
 
             }
 
@@ -170,6 +178,116 @@ class SummaryTaskFragment : Fragment() {
         // Hide Keyboard
         val imm = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
         imm?.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+    }
+    fun changeVisibility(status:Int){
+        when(status){
+            0->{
+                llSummaryTask.visibility = View.GONE
+                llNoSummaryTask.visibility = View.GONE
+            }
+            1->{
+                llSummaryTask.visibility = View.VISIBLE
+                llNoSummaryTask.visibility = View.GONE
+            }
+        }
+
+    }
+    fun numberOfTaskInfoShowCase(){
+        changeVisibility(0)
+        MaterialTapTargetPrompt.Builder(this@SummaryTaskFragment)
+            .setTarget(R.id.tvTotalTasks)
+            .setBackgroundColour(resources.getColor(R.color.green))
+            .setFocalColour(resources.getColor(R.color.pink))
+            .setPrimaryText("See The Total Number of Tasks You have")
+            .setSecondaryText("You can see the total number of tasks you have added to the application.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptStateChangeListener(MaterialTapTargetPrompt.PromptStateChangeListener { prompt, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED
+                ) {
+                   totalTimeInfoShowCase()
+
+                }
+            })
+            .show()
+    }
+    fun totalTimeInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@SummaryTaskFragment)
+            .setTarget(R.id.tvTotalTimes)
+            .setBackgroundColour(resources.getColor(R.color.green))
+            .setFocalColour(resources.getColor(R.color.pink))
+            .setPrimaryText("See The Total Time You Have Spend on All Tasks")
+            .setSecondaryText("You can see the total time You have spent on all tasks.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptStateChangeListener(MaterialTapTargetPrompt.PromptStateChangeListener { prompt, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED
+                ) {
+                    taskInfoShowCase()
+
+                }
+            })
+            .show()
+
+    }
+    fun taskInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@SummaryTaskFragment)
+            .setTarget(R.id.rvSummary)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("Manage Your Task")
+            .setSecondaryText("You can see, update and delete your task information." +
+                          "Swipe the task to the right to update task information." +
+                         " And swipe to the left to  delete the task.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptBackground(RectanglePromptBackground())
+            .setPromptStateChangeListener(MaterialTapTargetPrompt.PromptStateChangeListener { prompt, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED
+                ) {
+                    searchInfoShowCase()
+
+                }
+            })
+            .show()
+
+    }
+    fun searchInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@SummaryTaskFragment)
+            .setTarget(R.id.svSearchTask)
+            .setBackgroundColour(resources.getColor(R.color.pink))
+            .setFocalColour(resources.getColor(R.color.green))
+            .setPrimaryText("Search for Your Task(s)")
+            .setSecondaryText("Write you task(s) name to search for it.")
+            .setPromptFocal(RectanglePromptFocal())
+            .setPromptBackground(RectanglePromptBackground())
+            .setPromptStateChangeListener(MaterialTapTargetPrompt.PromptStateChangeListener { prompt, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED
+                ) {
+                    sortInfoShowCase()
+
+                }
+            })
+            .show()
+
+    }
+    fun sortInfoShowCase(){
+        MaterialTapTargetPrompt.Builder(this@SummaryTaskFragment)
+            .setTarget(R.id.ivSort)
+            .setBackgroundColour(resources.getColor(R.color.green))
+            .setFocalColour(resources.getColor(R.color.pink))
+            .setPrimaryText("Sort Your Tasks")
+            .setSecondaryText("You can sort your tasks by name, either ascending or descending. Click the sort icon to change the order.")
+            .setPromptStateChangeListener(MaterialTapTargetPrompt.PromptStateChangeListener { prompt, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED
+                    || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED
+                ) {
+                  changeVisibility(1)
+
+                }
+            })
+            .show()
     }
 
 
