@@ -38,7 +38,7 @@ class SummaryTaskFragment : Fragment() {
     lateinit var ivSort:ImageView
     val searchArray = arrayListOf<Tasks>()
     val sortArray = arrayListOf<Tasks>()
-    var sortFlag:Boolean=false
+    var sortFlag:Boolean=true
 
     private val myViewModel by lazy{ ViewModelProvider(this).get(MyViewModel::class.java)}
 
