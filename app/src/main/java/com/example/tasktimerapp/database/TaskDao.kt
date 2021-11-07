@@ -10,6 +10,9 @@ interface TaskDao{
     @Query("SELECT * FROM Tasks")
     fun getAllMyTasks(): LiveData<List<Tasks>>
 
+    @Query("SELECT TotalTimer FROM Tasks WHERE id=:taskID")
+    fun getMyTask(taskID:Int): String
+
     @Insert
     fun insertTask(tasks: Tasks)
 

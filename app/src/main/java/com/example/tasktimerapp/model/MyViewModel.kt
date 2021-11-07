@@ -41,4 +41,8 @@ class MyViewModel(application: Application): AndroidViewModel(application) {
             noteDao.delete(taskID)
         }
     }
+    fun getTask(taskID: Int):String{
+        return noteDao.getMyTask(taskID)
+
+    }
 }
