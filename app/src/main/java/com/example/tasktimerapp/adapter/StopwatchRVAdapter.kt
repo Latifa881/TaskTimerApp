@@ -46,16 +46,16 @@ class StopwatchRVAdapter (private val activity: ViewTaskFragment):  RecyclerView
             ivStart.setOnClickListener {
 
                 if (!MyTime.isActive ){
-                     if (activity.myTaskId == data.id) {
+                     if (MyTime.myTaskId == data.id) {
                          var time = activity.tvStopWatch.text.toString()
 
-                         myViewModel.updateTask(time, activity.myTaskId )
+                         myViewModel.updateTask(time, MyTime.myTaskId )
                      }else {
 
                          var time = activity.tvStopWatch.text.toString()
 
-                         myViewModel.updateTask(time, activity.myTaskId )
-                         activity.myTaskId = data.id
+                         myViewModel.updateTask(time, MyTime.myTaskId )
+                         MyTime.myTaskId = data.id
                          activity.resetTimer()
                          activity.startTimer()
                          activity.tvTaskName.visibility = View.VISIBLE
@@ -66,7 +66,7 @@ class StopwatchRVAdapter (private val activity: ViewTaskFragment):  RecyclerView
 
                 }else {
                     var id = data.id
-                    if( activity.myTaskId == data.id){
+                    if( MyTime.myTaskId == data.id){
                         var time = activity.tvStopWatch.text.toString()
 
                         myViewModel.updateTask(time, id )
@@ -77,11 +77,11 @@ class StopwatchRVAdapter (private val activity: ViewTaskFragment):  RecyclerView
                         activity.ivIcanchor.startAnimation(animation)
 
 
-                } else if (id != activity.myTaskId) {
+                } else if (id != MyTime.myTaskId) {
 
                         var time = activity.tvStopWatch.text.toString()
-                        myViewModel.updateTask(time, activity.myTaskId)
-                        activity.myTaskId = id
+                        myViewModel.updateTask(time, MyTime.myTaskId)
+                        MyTime.myTaskId = id
                         activity.resetTimer()
                         activity.startTimer()
                         activity.tvTaskName.visibility = View.VISIBLE
@@ -97,7 +97,7 @@ class StopwatchRVAdapter (private val activity: ViewTaskFragment):  RecyclerView
             ivStop.setOnClickListener {
                 MyTime.isActive = false
 
-                if (activity.myTaskId == data.id) {
+                if (MyTime.myTaskId == data.id) {
                 var time = activity.tvStopWatch.text.toString()
                 myViewModel.updateTask(time , data.id)
                 activity.resetTimer()

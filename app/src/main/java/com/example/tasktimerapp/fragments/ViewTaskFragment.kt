@@ -40,7 +40,6 @@ class ViewTaskFragment : Fragment() {
     var timerStarted = false
     private lateinit var serviceIntent: Intent
     private var time = 0.0
-    var myTaskId = 0
     private val myViewModel by lazy{ ViewModelProvider(this).get(MyViewModel::class.java)}
 
     override fun onCreateView(

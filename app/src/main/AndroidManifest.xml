@@ -9,7 +9,6 @@
         android:roundIcon="@drawable/task"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskTimerApp">
-
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">
