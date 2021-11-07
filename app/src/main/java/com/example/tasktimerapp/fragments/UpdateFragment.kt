@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasktimerapp.R
-import com.example.tasktimerapp.database.Tasks
+import com.example.tasktimerapp.model.Tasks
 import com.example.tasktimerapp.model.MyViewModel
 import com.google.android.material.textfield.TextInputEditText
 

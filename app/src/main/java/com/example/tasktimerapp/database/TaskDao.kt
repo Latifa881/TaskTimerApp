@@ -2,6 +2,7 @@ package com.example.tasktimerapp.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.tasktimerapp.model.Tasks
 
 @Dao
 interface TaskDao{

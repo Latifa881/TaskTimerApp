@@ -1,9 +1,8 @@
 package com.example.tasktimerapp.activities
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         btNavigationView.background = null
         btNavigationView.menu.getItem(2).isEnabled = false
          fab = findViewById(R.id.fabMain)
-        //Now let's the default Fragment
+
         homeFragment = HomeFragment()
         supportFragmentManager
             .beginTransaction()
@@ -37,28 +36,27 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             changeFragment(AddTaskFragment())
-           // startActivity(Intent(this, AddTaskActivity::class.java))
+
         }
 
         btNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     changeFragment(HomeFragment())
-               //     startActivity(Intent(this, MainActivity::class.java))
+
                 }
                 R.id.view -> {
                     changeFragment(ViewTaskFragment())
-                    //startActivity(Intent(this, ViewTaskActivity::class.java))
+
 
                 }
                 R.id.alarm -> {
                     changeFragment(AlarmFragment())
-                  //  startActivity(Intent(this, AddTaskActivity::class.java))
 
                 }
                 R.id.summary -> {
                     changeFragment(SummaryTaskFragment())
-                //    startActivity(Intent(this, SummaryTaskActivity::class.java))
+
                 }
 
             }

@@ -99,7 +99,6 @@ class HomeFragment : Fragment() {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
     }
-
     private fun setupIndicators(){
 
         val indicators = arrayOfNulls<ImageView>(onboardingItemsAdapter.itemCount)
@@ -121,7 +120,6 @@ class HomeFragment : Fragment() {
         }
 
     }
-
     private fun setCurrentIndicator( position: Int){
         val childCount = indicatorsContainer.childCount
         for (i in 0 until childCount){

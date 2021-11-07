@@ -1,4 +1,4 @@
-package com.example.tasktimerapp.database
+package com.example.tasktimerapp.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

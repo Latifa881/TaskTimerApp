@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.tasktimerapp.database.Tasks
+import com.example.tasktimerapp.model.Tasks
 import com.example.tasktimerapp.model.MyViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.example.tasktimerapp.R

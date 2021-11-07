@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tasktimerapp.R
-import com.example.tasktimerapp.database.Tasks
+import com.example.tasktimerapp.model.Tasks
 import com.example.tasktimerapp.fragments.SummaryTaskFragment
 import com.example.tasktimerapp.model.MyViewModel
 import kotlinx.android.synthetic.main.summary_row.view.*
@@ -54,8 +54,7 @@ class SummaryRVAdapter(private val activity: SummaryTaskFragment):  RecyclerView
     fun deleteTask(deleteID :Int){
         myViewModel.deleteTask(tasks[deleteID].id)
     }
-    fun updateTask(deleteID :Int):Tasks{
-       // myViewModel.updateTaskObj(tasks[deleteID])
+    fun updateTask(deleteID :Int): Tasks {
         return tasks[deleteID]
     }
 

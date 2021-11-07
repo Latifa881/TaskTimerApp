@@ -5,12 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tasktimerapp.singletoneobject.MyTime
 import com.example.tasktimerapp.R
-import com.example.tasktimerapp.database.Tasks
+import com.example.tasktimerapp.model.Tasks
 import com.example.tasktimerapp.fragments.ViewTaskFragment
 import com.example.tasktimerapp.model.MyViewModel
 import kotlinx.android.synthetic.main.task_row.view.*

@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tasktimerapp.R
 import com.example.tasktimerapp.adapter.SummaryRVAdapter
 import com.example.tasktimerapp.callbacks.SwipeGesture
-import com.example.tasktimerapp.database.Tasks
+import com.example.tasktimerapp.model.Tasks
 import com.example.tasktimerapp.model.MyViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
